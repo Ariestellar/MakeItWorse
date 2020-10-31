@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4316535553040347385}
   - component: {fileID: 4316535553040347386}
   - component: {fileID: 4316535553040347387}
-  - component: {fileID: 9005746716271169440}
   - component: {fileID: 4316535553040347388}
   m_Layer: 2
   m_Name: SliceLine
@@ -81,18 +80,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &9005746716271169440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4316535553040347389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7b98dc8fbdc144db8cd6d88b871d2c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &4316535553040347388
 BoxCollider:
   m_ObjectHideFlags: 0
