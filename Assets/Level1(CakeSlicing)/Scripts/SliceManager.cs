@@ -77,22 +77,39 @@ public class SliceManager : MonoBehaviour
     {
         //Первая линия режет целый начальный объект:
         _pieces = GetSlicedPieces(objectToShatter, GetСutLine(_sliceLines[0].transform), crossSectionMaterial);
-        objectToShatter.SetActive(false);//Цельный кусок уже ненужен, скрываем его
-
-        //временные куски для того что бы в процессе обработки они не добавлялись в актуальные и не делали цикл бесконечным\
-        //в конце они объединяються и становяться актуальными             
-        List<GameObject> tempPieces = new List<GameObject>();
+        Destroy(objectToShatter);
+        //временные куски для того что бы в процессе обработки они не добавлялись в актуальные и не делали цикл бесконечным
+        //в конце они объединяються и становяться актуальными
 
         //Режем куски от полученных кусков линиями по порядку:   
         for (int i = 1; i < _sliceLines.Count; i++)
         {
-            foreach (var item in _pieces)
-            {
-                tempPieces.AddRange(GetSlicedPieces(item, GetСutLine(_sliceLines[i].transform), crossSectionMaterial));                
-            }            
-            _pieces.Clear();
-            _pieces.AddRange(tempPieces);
+            //так как первая линия режет цельный объект то следующий линии начинаем с i=1
+            SingleLineSlicing(i);            
         }
+    }
+
+
+    private void SingleLineSlicing(int numberLine)
+    {
+        List<GameObject> tempPieces = new List<GameObject>();
+
+        foreach (var item in _pieces)
+        {
+            List<GameObject> currentPiece = GetSlicedPieces(item, GetСutLine(_sliceLines[numberLine].transform), crossSectionMaterial);
+            if (currentPiece != null)
+            {
+                tempPieces.AddRange(currentPiece);
+                Destroy(item);
+            }
+            else
+            {                
+                tempPieces.Add(item);
+            }
+
+        }
+        _pieces.Clear();
+        _pieces.AddRange(tempPieces);
     }
 
     /*
@@ -121,10 +138,13 @@ public class SliceManager : MonoBehaviour
         {            
             foreach (var item in currentShatterObject)
             {
-                currentShatterObjectList.Add(item);
-            }
-            obj.SetActive(false);
-        }               
+                currentShatterObjectList.Add(item); 
+            }            
+        }
+        else
+        {
+            currentShatterObjectList = null;
+        }        
         return currentShatterObjectList;
     }
 
