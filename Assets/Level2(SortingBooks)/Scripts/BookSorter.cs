@@ -24,6 +24,10 @@ public class BookSorter : MonoBehaviour
         _booksInHand = booksInHand;
     }
 
+    /*
+     *Сортировка
+     *Пареметр: номер книги на которую указывают
+     */
     public void Sort(int number)
     {
         //если указатель на книге:
@@ -31,27 +35,31 @@ public class BookSorter : MonoBehaviour
         if (number < _booksInHand.GetNumber())
         {
             for (int i = number; i < _books.Length; i++)
-            {
-                //_books[i].transform.position = new Vector3(_books[i].transform.position.x + 1.2f, _books[i].transform.position.y, _books[i].transform.position.z);
+            {                
                 _books[i].SetNumber(i+1);
             }
         }
-        else//-если больше то в лево
+        else//если больше то в лево:
         {
             for (int i = number; i > 0; i--)
-            {                
-                //_books[i].transform.position = new Vector3(_books[i].transform.position.x - 1.2f, _books[i].transform.position.y, _books[i].transform.position.z);
+            {                                
                 _books[i].SetNumber(i - 1);
             }
         }
 
         _booksInHand.SetNumber(number);
-        //Отсортировать массив по порядку!
+        //Отсортировать массив по порядку:
         _books = _books.OrderBy(Book => Book.GetNumber()).ToArray();
+
+        float positionOffsetX = 0;
         for (int i = 0; i < _books.Length; i++)
         {
+            if (i != 0)
+            {
+                positionOffsetX += 1.2f;
+            }
             //Распределить по порядку расположение(Учесть выключенную книгу)
-            _books[i].transform.position = new Vector3(_books[i].transform.position.x + 1.2f, _books[i].transform.position.y, _books[i].transform.position.z);
+            _books[i].transform.position = new Vector3(positionOffsetX, _books[i].transform.position.y, _books[i].transform.position.z);
         }
     }
 }

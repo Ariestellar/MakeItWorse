@@ -8,6 +8,7 @@ public class TouchHandler : MonoBehaviour
     [SerializeField] private BookSorter _bookSorter;
 
     private GameObject _bookInHand;    
+    private Book _bookInShelf;    
     private Camera _camera;
     private bool _isMouseButtonPressed;
 
@@ -32,8 +33,9 @@ public class TouchHandler : MonoBehaviour
                         _isMouseButtonPressed = true;
                         _bookInHand = Instantiate(hit.transform.gameObject);
                         _bookInHand.layer = 2;//Взятая в руки книга игнорирует райкаст 
+                        _bookInShelf = hit.transform.gameObject.GetComponent<Book>();
                         hit.transform.gameObject.GetComponent<Book>().Hidden();
-                        _bookSorter.SetBookInHand(_bookInHand.GetComponent<Book>());
+                        _bookSorter.SetBookInHand(hit.transform.gameObject.GetComponent<Book>());
                     }
                     else//Если тянем не отрывая от экрана указывая на книгу:
                     {
@@ -48,7 +50,7 @@ public class TouchHandler : MonoBehaviour
                     if (_bookInHand != null)
                     {
                         //Меняем ей позицию 
-                        _bookInHand.transform.position = new Vector3(hit.point.x, hit.point.y, -10);
+                        _bookInHand.transform.position = new Vector3(hit.point.x, hit.point.y, -5);
                     }
                 }
             }
@@ -58,7 +60,8 @@ public class TouchHandler : MonoBehaviour
             //Если в руках книга:
             if (_bookInHand != null)
             {
-                Destroy(_bookInHand);//уничтожаем ее
+                Destroy(_bookInHand);//Уничтожаем ее
+                _bookInShelf.Show();
             }
             _isMouseButtonPressed = false;
         }
