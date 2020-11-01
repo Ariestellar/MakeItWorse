@@ -584,8 +584,10 @@ MonoBehaviour:
   _sliceLine: {fileID: 4316535553040347389, guid: be8ad14458910904a8cdf4aef76156fc,
     type: 3}
   objectToShatter: {fileID: 1805777568}
-  crossSectionMaterial: {fileID: 0}
-  prevShatters: []
+  crossSectionMaterial: {fileID: 2100000, guid: e687d3a2193040e4eb0703ce4e931af1,
+    type: 2}
+  _sliceLines: []
+  _pieces: []
 --- !u!1 &1511554671
 GameObject:
   m_ObjectHideFlags: 0

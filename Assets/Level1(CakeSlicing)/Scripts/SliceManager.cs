@@ -7,7 +7,7 @@ using System;
 
 public class SliceManager : MonoBehaviour
 {
-    [SerializeField] private LineRenderer _lineRenderer;
+    //[SerializeField] private LineRenderer _lineRenderer;
     [SerializeField] private GameObject _sliceLine;
     [SerializeField] private GameObject objectToShatter;
     [SerializeField] private Material crossSectionMaterial;
@@ -40,14 +40,14 @@ public class SliceManager : MonoBehaviour
                     {
                         _startPointSwipe = hit.point;
 
-                        _lineRenderer.SetPosition(0, _startPointSwipe);
+                        //_lineRenderer.SetPosition(0, _startPointSwipe);
                         _currentSliceLine = Instantiate(_sliceLine);
                         _isMouseButtonPressed = true;                        
                     }
                     else
                     {
                         _currentPointSwipe = hit.point;
-                        _lineRenderer.SetPosition(1, _currentPointSwipe);
+                        //_lineRenderer.SetPosition(1, _currentPointSwipe);
 
                         _currentSliceLine.transform.position = GetCenterCutPosition(_startPointSwipe, _currentPointSwipe); 
                         Vector3 directionLook = _currentPointSwipe - _currentSliceLine.transform.position;
@@ -77,39 +77,46 @@ public class SliceManager : MonoBehaviour
     {
         //Первая линия режет целый начальный объект:
         _pieces = GetSlicedPieces(objectToShatter, GetСutLine(_sliceLines[0].transform), crossSectionMaterial);
-        Destroy(objectToShatter);
-        //временные куски для того что бы в процессе обработки они не добавлялись в актуальные и не делали цикл бесконечным
-        //в конце они объединяються и становяться актуальными
-
+        objectToShatter.SetActive(false);
+        //Destroy(objectToShatter);
+       
         //Режем куски от полученных кусков линиями по порядку:   
         for (int i = 1; i < _sliceLines.Count; i++)
         {
             //так как первая линия режет цельный объект то следующий линии начинаем с i=1
-            SingleLineSlicing(i);            
+            _pieces = SingleLineSlicing(_sliceLines[i], _pieces);            
         }
+        _sliceLines.ForEach(line => line.SetActive(false));
+        //_lineRenderer.enabled = false;
+        PushMovementPieces(_pieces);
     }
 
-
-    private void SingleLineSlicing(int numberLine)
+    /*
+     * Нарезка в доль одной линии 
+     * принимает параметры:
+     * - линию нарезки
+     * - объекты которые нужно нарезать по этой линии
+     * возвращает: список объектов нарезанных кусков
+     */
+    private List<GameObject> SingleLineSlicing(GameObject sliceLine, List<GameObject> objectsForSlicing)
     {
         List<GameObject> tempPieces = new List<GameObject>();
 
-        foreach (var item in _pieces)
+        foreach (var item in objectsForSlicing)
         {
-            List<GameObject> currentPiece = GetSlicedPieces(item, GetСutLine(_sliceLines[numberLine].transform), crossSectionMaterial);
+            List<GameObject> currentPiece = GetSlicedPieces(item, GetСutLine(sliceLine.transform), crossSectionMaterial);
+
             if (currentPiece != null)
             {
                 tempPieces.AddRange(currentPiece);
                 Destroy(item);
             }
-            else
+            else//если объект никак не нарезается этой линией, то просто добавляем его неразрезанным в массив
             {                
                 tempPieces.Add(item);
             }
-
         }
-        _pieces.Clear();
-        _pieces.AddRange(tempPieces);
+        return tempPieces;        
     }
 
     /*
@@ -156,5 +163,22 @@ public class SliceManager : MonoBehaviour
     private EzySlice.Plane GetСutLine(Transform incisionPosition)
     {
         return new EzySlice.Plane(incisionPosition.position, incisionPosition.right);
-    }    
+    }
+
+    /*
+     * Запустить движение кусков после нарезки
+     */
+    private void PushMovementPieces(List<GameObject> pieces)
+    { 
+        foreach (var piece in pieces)
+        {            
+            piece.AddComponent<MeshCollider>().convex = true;                      
+        }
+
+        foreach (var piece in pieces)
+        {
+            Vector3 direction = piece.GetComponent<Collider>().bounds.center - Vector3.zero;            
+            piece.transform.position = direction.normalized * 0.15f;
+        }
+    }
 }
