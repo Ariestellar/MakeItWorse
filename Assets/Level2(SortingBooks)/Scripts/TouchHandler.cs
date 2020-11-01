@@ -6,11 +6,11 @@ using UnityEngine.EventSystems;
 public class TouchHandler : MonoBehaviour
 {
     [SerializeField] private BookSorter _bookSorter;
-
-    private GameObject _bookInHand;    
-    private Book _bookInShelf;    
-    private Camera _camera;
-    private bool _isMouseButtonPressed;
+    //Расстояние на котором отображается книга в руке
+    private float _distanceViewBookInHand = -5;
+    private GameObject _viewBookInHand;    
+    private Book _bookInHand;    
+    private Camera _camera;    
 
     private void Awake()
     {
@@ -28,29 +28,34 @@ public class TouchHandler : MonoBehaviour
             {
                 if (hit.transform.gameObject.GetComponent<Book>())
                 {
-                    if (_isMouseButtonPressed == false)//Если первый раз коснулись
+                    if (_bookInHand == null)//Если первый раз коснулись книги
                     {                        
-                        _isMouseButtonPressed = true;
-                        _bookInHand = Instantiate(hit.transform.gameObject);
-                        _bookInHand.layer = 2;//Взятая в руки книга игнорирует райкаст 
-                        _bookInShelf = hit.transform.gameObject.GetComponent<Book>();
-                        hit.transform.gameObject.GetComponent<Book>().Hidden();
-                        _bookSorter.SetBookInHand(hit.transform.gameObject.GetComponent<Book>());
+                        //Создаем отображение книги в руке
+                        _viewBookInHand = Instantiate(hit.transform.gameObject);
+                        _viewBookInHand.layer = 2;//Взятая в руки книга игнорирует райкаст
+
+                        //Прячем книгу с полки
+                        _bookInHand = hit.transform.gameObject.GetComponent<Book>();
+                        _bookInHand.HideFromShelf();
+
+                        //Передаем ссылку на книгу взятую с полки в сортировщик книг
+                        _bookSorter.SetBookInHand(_bookInHand);
                     }
-                    else//Если тянем не отрывая от экрана указывая на книгу:
+                    //Если тянем не отрывая от экрана указывая на книгу:
+                    else
                     {
-                        //то книга на которую указываем меняет позицию вправо
-                        //hit.transform.position = new Vector3(hit.transform.position.x + 1.2f, hit.transform.position.y, hit.transform.position.z);
-                        hit.transform.gameObject.GetComponent<Book>().ChangePosition();//Вызываем событие "Сменить позицию" у книги
+                        //Вызываем событие "Сменить позицию" у книги на которую указываем
+                        hit.transform.gameObject.GetComponent<Book>().ChangePosition();
+                        
                     }
                 }
                 else//Если тянем не отрывая от экрана указывая на что угодно кроме книги:
                 {
                     //Если в руках книга:
-                    if (_bookInHand != null)
+                    if (_viewBookInHand != null)
                     {
                         //Меняем ей позицию 
-                        _bookInHand.transform.position = new Vector3(hit.point.x, hit.point.y, -5);
+                        _viewBookInHand.transform.position = new Vector3(hit.point.x, hit.point.y, _distanceViewBookInHand);
                     }
                 }
             }
@@ -58,12 +63,13 @@ public class TouchHandler : MonoBehaviour
         else//Если оторвали от экрана палец
         {
             //Если в руках книга:
-            if (_bookInHand != null)
+            if (_viewBookInHand != null)
             {
-                Destroy(_bookInHand);//Уничтожаем ее
-                _bookInShelf.Show();
-            }
-            _isMouseButtonPressed = false;
+                Destroy(_viewBookInHand);//Уничтожаем ее отображение в руке
+                _bookInHand.ShowOnShelf();//Показываем книгу на полке
+
+                _bookInHand = null;
+            }            
         }
     }
 }

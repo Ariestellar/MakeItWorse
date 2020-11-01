@@ -9,6 +9,7 @@ public class Book : MonoBehaviour
     public Action<int> ChangeOfPosition;
 
     [SerializeField] private int _number;
+    private bool _isHand;
 
     public int GetNumber()
     {
@@ -25,15 +26,28 @@ public class Book : MonoBehaviour
         ChangeOfPosition?.Invoke(_number);
     }
 
-    public void Hidden()
+    /*
+     * Скрыть с полки
+     */
+    public void HideFromShelf()
     {
+        _isHand = true;
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
     }
 
-    public void Show()
+    /*
+     * Показать на полке
+     */
+    public void ShowOnShelf()
     {
+        _isHand = false;
         GetComponent<MeshRenderer>().enabled = true;
         GetComponent<Collider>().enabled = true;
+    }
+
+    public bool IsHand()
+    {
+        return _isHand;
     }
 }
