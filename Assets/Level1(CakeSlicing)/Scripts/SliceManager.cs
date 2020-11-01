@@ -7,7 +7,7 @@ using System;
 
 public class SliceManager : MonoBehaviour
 {
-    //[SerializeField] private LineRenderer _lineRenderer;
+    //[SerializeField] private CuttingPosition _cuttingPosition;
     [SerializeField] private GameObject _sliceLine;
     [SerializeField] private GameObject objectToShatter;
     [SerializeField] private Material crossSectionMaterial;
@@ -38,8 +38,7 @@ public class SliceManager : MonoBehaviour
                 {
                     if (_isMouseButtonPressed == false)
                     {
-                        _startPointSwipe = hit.point;
-
+                        _startPointSwipe = hit.point;                        
                         //_lineRenderer.SetPosition(0, _startPointSwipe);
                         _currentSliceLine = Instantiate(_sliceLine);
                         _isMouseButtonPressed = true;                        

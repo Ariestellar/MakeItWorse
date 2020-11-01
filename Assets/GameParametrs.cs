@@ -1,0 +1,5 @@
+﻿enum CuttingPosition
+{
+    Vertically,
+    Horizontally
+}
