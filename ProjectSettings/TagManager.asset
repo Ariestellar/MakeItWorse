@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Table
   - Book
+  - Domino
+  - LayingArea
   layers:
   - Default
   - TransparentFX
