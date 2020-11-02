@@ -4,17 +4,20 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using EzySlice;
 using System;
+using UnityEditorInternal;
 
 public class SliceManager : MonoBehaviour
 {
-    //[SerializeField] private CuttingPosition _cuttingPosition;
-    [SerializeField] private GameObject _sliceLine;
+    [SerializeField] private LineRendererManager _lineRendererManager;    
     [SerializeField] private GameObject objectToShatter;
     [SerializeField] private Material crossSectionMaterial;
     [SerializeField] private List<GameObject> _sliceLines;
     [SerializeField] private List<GameObject> _pieces;
-    
+
+    [SerializeField] private GameObject _knife;
+    private LineRenderer _sliceLineRenderer;
     private GameObject _currentSliceLine;
+    //[SerializeField]private GameObject _prefabSlice;//для теста
     private Camera _camera;    
     private bool _isMouseButtonPressed;
     private Vector3 _startPointSwipe;
@@ -27,42 +30,68 @@ public class SliceManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))//Если мы касаемся экрана:
         {           
             RaycastHit hit;
-            Ray rayAttack = _camera.ScreenPointToRay(Input.mousePosition);
+            Ray rayAttack = _camera.ScreenPointToRay(Input.mousePosition);//пускаем луч в точку касания            
 
-            if (Physics.Raycast(rayAttack, out hit) && EventSystem.current.IsPointerOverGameObject() == false)
+            if (Physics.Raycast(rayAttack, out hit) && EventSystem.current.IsPointerOverGameObject() == false)//и проверяем не нажат ли UI
             {
-                if (hit.transform.gameObject.tag == "Table")
-                {
-                    if (_isMouseButtonPressed == false)
+                if (hit.transform.gameObject.tag == "Cake")//Если луч встречает торт
+                {    
+                    if (_isMouseButtonPressed == false)//Если это было первое касание по торту то:
                     {
-                        _startPointSwipe = hit.point;                        
-                        //_lineRenderer.SetPosition(0, _startPointSwipe);
-                        _currentSliceLine = Instantiate(_sliceLine);
-                        _isMouseButtonPressed = true;                        
-                    }
-                    else
-                    {
-                        _currentPointSwipe = hit.point;
-                        //_lineRenderer.SetPosition(1, _currentPointSwipe);
+                        _sliceLineRenderer = _lineRendererManager.Create();//Создаем линию для отображения если возвращает null значит линий уже много(больше 4) хватит их создавать
+                        if (_sliceLineRenderer)//если все таки не null
+                        {
+                            _startPointSwipe = hit.point;//ставим точку начала резки
 
-                        _currentSliceLine.transform.position = GetCenterCutPosition(_startPointSwipe, _currentPointSwipe); 
-                        Vector3 directionLook = _currentPointSwipe - _currentSliceLine.transform.position;
-                        _currentSliceLine.transform.LookAt(_currentPointSwipe, directionLook.normalized);
-                        _currentSliceLine.transform.localScale = new Vector3(_currentSliceLine.transform.localScale.x, _currentSliceLine.transform.localScale.y, Vector3.Distance(_startPointSwipe, _currentPointSwipe));
-                        _currentSliceLine.transform.position = new Vector3(_currentSliceLine.transform.position.x, 0, _currentSliceLine.transform.position.z);                        
+                            _knife.SetActive(true);//показхываем нож если он был до этого скрыт(перед первым запуском он не скрыт а лежит на столе)
+                            _knife.GetComponent<Animator>().enabled = true;//включаем у ножа анимацию резки
+
+                            _sliceLineRenderer.SetPosition(0, _startPointSwipe);//Задаем начальную позицию на рисованной линии
+                            _currentSliceLine = new GameObject("ScliceLine");//Создаем настоящюю (не рисованную) линию разреза
+                            //_currentSliceLine = Instantiate(_prefabSlice);//для сравнения можно было использовать префаб линии
+                            _currentSliceLine.transform.parent = this.transform;//для порядка на сцене прячем эту линию в родителя SliceManager
+                            _isMouseButtonPressed = true;//Устанавливаем флаг первого касания что бы сюда не возвращаться
+                        }                                               
+                    }
+                    else//Если это не первое касание по торту(тоесть мы ведем лучем по торту не отрывая пальца)
+                    {                        
+                        if (_sliceLineRenderer)//если у нас есть рисуемая линия 
+                        {                           
+                            _currentPointSwipe = hit.point;//получаем текушюю точку местоположение пальца
+                            _knife.transform.position = _currentPointSwipe;//устанавливаем в эту точку нож
+                            _sliceLineRenderer.SetPosition(1, _currentPointSwipe);//устанавливаем эту точку для линии отрисовки
+
+                            //Это логика создания и деформации линии разреза(не линии рисовки) в доль свайпа:
+                            _currentSliceLine.transform.position = GetCenterCutPosition(_startPointSwipe, _currentPointSwipe);
+                            Vector3 directionLook = _currentPointSwipe - _currentSliceLine.transform.position;
+                            _currentSliceLine.transform.LookAt(_currentPointSwipe, directionLook.normalized);
+                            _currentSliceLine.transform.localScale = new Vector3(_currentSliceLine.transform.localScale.x, _currentSliceLine.transform.localScale.y, Vector3.Distance(_startPointSwipe, _currentPointSwipe));
+                            _currentSliceLine.transform.position = new Vector3(_currentSliceLine.transform.position.x, 0, _currentSliceLine.transform.position.z);
+                        }
+                                            
                     }                    
                 }
             }           
         }
-        else
+        else//Если мы убираем палец от экрана:
         {
+            //и при этом у нас есть текущая линия нарезки
             if (_currentSliceLine != null)
             {
+                //то добавляем линию в список линии(в дальнейшем для разрезки)
                 _sliceLines.Add(_currentSliceLine);
+                //Убираем ссылку на текущую линию
                 _currentSliceLine = null;
+                //после окончания вырисовывания линии прячем нож
+                _knife.SetActive(false);
+                //Когда мы закончили рисовать последнюю линию (4 по счету)
+                if (_lineRendererManager.GetNumberLines() == 4)
+                {
+                    Slice();//запускаем нарезку вместо кнопки
+                }
             }            
             _isMouseButtonPressed = false;            
         }
@@ -70,7 +99,7 @@ public class SliceManager : MonoBehaviour
 
     /*
      * Нарезка
-     * -висит на кнопке "Нарезать"
+     * -запускается после проведения 4 линии нарезки
      */
     public void Slice()
     {
