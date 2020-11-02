@@ -90,6 +90,7 @@ public class SliceManager : MonoBehaviour
                 //Когда мы закончили рисовать последнюю линию (4 по счету)
                 if (_lineRendererManager.GetNumberLines() == 4)
                 {
+                    _lineRendererManager.gameObject.SetActive(false);
                     Slice();//запускаем нарезку вместо кнопки
                 }
             }            
@@ -200,13 +201,15 @@ public class SliceManager : MonoBehaviour
     { 
         foreach (var piece in pieces)
         {            
-            piece.AddComponent<MeshCollider>().convex = true;                      
+            piece.AddComponent<MeshCollider>().convex = true;
+            piece.AddComponent<Piece>();
         }
 
         foreach (var piece in pieces)
         {
-            Vector3 direction = piece.GetComponent<Collider>().bounds.center - Vector3.zero;            
-            piece.transform.position = direction.normalized * 0.15f;
+            piece.GetComponent<Piece>().SetMovement();
+            /*Vector3 direction = piece.GetComponent<Collider>().bounds.center - Vector3.zero;            
+            piece.transform.position = direction.normalized * 0.15f;*/
         }
     }
 }
