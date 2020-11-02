@@ -62,6 +62,7 @@ public class SliceManager : MonoBehaviour
                         {                           
                             _currentPointSwipe = hit.point;//получаем текушюю точку местоположение пальца
                             _knife.transform.position = _currentPointSwipe;//устанавливаем в эту точку нож
+                            _knife.transform.forward =  _startPointSwipe - _currentPointSwipe;
                             _sliceLineRenderer.SetPosition(1, _currentPointSwipe);//устанавливаем эту точку для линии отрисовки
 
                             //Это логика создания и деформации линии разреза(не линии рисовки) в доль свайпа:
