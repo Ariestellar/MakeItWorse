@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using EzySlice;
-using System;
-using UnityEditorInternal;
+
 
 public class SliceManager : MonoBehaviour
 {
