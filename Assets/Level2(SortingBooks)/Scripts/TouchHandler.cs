@@ -5,9 +5,8 @@ using UnityEngine.EventSystems;
 
 public class TouchHandler : MonoBehaviour
 {
-    [SerializeField] private BookSorter _bookSorter;
-    //Расстояние на котором отображается книга в руке
-    private float _distanceViewBookInHand = -5;
+    [SerializeField] private BookSorter _bookSorter;    
+    private int _numberBooksDelivered;    
     private GameObject _viewBookInHand;    
     private Book _bookInHand;    
     private Camera _camera;    
@@ -18,7 +17,7 @@ public class TouchHandler : MonoBehaviour
     }
 
     void FixedUpdate()
-    {
+    {        
         if (Input.GetMouseButton(0))
         {
             RaycastHit hit;
@@ -50,12 +49,12 @@ public class TouchHandler : MonoBehaviour
                     }
                 }
                 else//Если тянем не отрывая от экрана указывая на что угодно кроме книги:
-                {
+                {                    
                     //Если в руках книга:
                     if (_viewBookInHand != null)
-                    {
+                    {                        
                         //Меняем ей позицию 
-                        _viewBookInHand.transform.position = new Vector3(hit.point.x, hit.point.y, _distanceViewBookInHand);
+                        _viewBookInHand.transform.position = new Vector3(hit.point.x - 0.5f, hit.point.y - 3, -1.5f);                        
                     }
                 }
             }
@@ -67,8 +66,13 @@ public class TouchHandler : MonoBehaviour
             {
                 Destroy(_viewBookInHand);//Уничтожаем ее отображение в руке
                 _bookInHand.ShowOnShelf();//Показываем книгу на полке
-
                 _bookInHand = null;
+                _numberBooksDelivered += 1;
+                if (_numberBooksDelivered < 2)
+                { 
+                    StartCoroutine(_bookSorter.PostponeStartingCounting());
+                    this.enabled = false;
+                }
             }            
         }
     }
