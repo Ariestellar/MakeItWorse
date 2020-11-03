@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using EzySlice;
+using System;
 
-
-public class SliceManager : MonoBehaviour
+public class SliceManager : MonoBehaviour, GameLogic
 {
     [SerializeField] private LineRendererManager _lineRendererManager;    
     [SerializeField] private GameObject objectToShatter;
+    [SerializeField] private GameObject _knife;
     [SerializeField] private Material crossSectionMaterial;
     [SerializeField] private List<GameObject> _sliceLines;
-    [SerializeField] private List<GameObject> _pieces;
-
-    [SerializeField] private GameObject _knife;
+    [SerializeField] private List<GameObject> _pieces;   
+       
+    private Action<StatusGame> _getResultsGame;
     private LineRenderer _sliceLineRenderer;
-    private GameObject _currentSliceLine;
-    //[SerializeField]private GameObject _prefabSlice;//для теста
+    private GameObject _currentSliceLine;    
     private Camera _camera;    
     private bool _isMouseButtonPressed;
     private Vector3 _startPointSwipe;
     private Vector3 _currentPointSwipe;
+       
 
     private void Awake()
     {
@@ -49,8 +50,7 @@ public class SliceManager : MonoBehaviour
                             _knife.GetComponent<Animator>().enabled = true;//включаем у ножа анимацию резки
 
                             _sliceLineRenderer.SetPosition(0, _startPointSwipe);//Задаем начальную позицию на рисованной линии
-                            _currentSliceLine = new GameObject("ScliceLine");//Создаем настоящюю (не рисованную) линию разреза
-                            //_currentSliceLine = Instantiate(_prefabSlice);//для сравнения можно было использовать префаб линии
+                            _currentSliceLine = new GameObject("ScliceLine");//Создаем настоящюю (не рисованную) линию разреза                           
                             _currentSliceLine.transform.parent = this.transform;//для порядка на сцене прячем эту линию в родителя SliceManager
                             _isMouseButtonPressed = true;//Устанавливаем флаг первого касания что бы сюда не возвращаться
                         }                                               
@@ -92,22 +92,33 @@ public class SliceManager : MonoBehaviour
                 {
                     _lineRendererManager.gameObject.SetActive(false);
                     Slice();//запускаем нарезку вместо кнопки
+                    StartCoroutine(SumUpGame(StatusGame.VICTORY));
                 }
             }            
             _isMouseButtonPressed = false;            
         }
     }
 
+    public void SetActionResultsGame(Action<StatusGame> action)
+    {
+        _getResultsGame = action;
+    }
+
+    private IEnumerator SumUpGame(StatusGame statusGame)
+    {
+        yield return new WaitForSeconds(2);
+        _getResultsGame?.Invoke(statusGame);        
+    }   
+
     /*
      * Нарезка
      * -запускается после проведения 4 линии нарезки
      */
-    public void Slice()
+    private void Slice()
     {
         //Первая линия режет целый начальный объект:
         _pieces = GetSlicedPieces(objectToShatter, GetСutLine(_sliceLines[0].transform), crossSectionMaterial);
-        objectToShatter.SetActive(false);
-        //Destroy(objectToShatter);
+        objectToShatter.SetActive(false);      
        
         //Режем куски от полученных кусков линиями по порядку:   
         for (int i = 1; i < _sliceLines.Count; i++)
@@ -115,9 +126,9 @@ public class SliceManager : MonoBehaviour
             //так как первая линия режет цельный объект то следующий линии начинаем с i=1
             _pieces = SingleLineSlicing(_sliceLines[i], _pieces);            
         }
-        _sliceLines.ForEach(line => line.SetActive(false));
-        //_lineRenderer.enabled = false;
-        PushMovementPieces(_pieces);
+
+        _sliceLines.ForEach(line => line.SetActive(false));        
+        PushMovementPieces(_pieces);        
     }
 
     /*
@@ -207,9 +218,7 @@ public class SliceManager : MonoBehaviour
 
         foreach (var piece in pieces)
         {
-            piece.GetComponent<Piece>().SetMovement();
-            /*Vector3 direction = piece.GetComponent<Collider>().bounds.center - Vector3.zero;            
-            piece.transform.position = direction.normalized * 0.15f;*/
+            piece.GetComponent<Piece>().SetMovement();            
         }
-    }
+    }    
 }

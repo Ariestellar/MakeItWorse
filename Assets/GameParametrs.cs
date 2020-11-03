@@ -1,5 +1,5 @@
-﻿enum CuttingPosition
+﻿public enum StatusGame
 {
-    Vertically,
-    Horizontally
+    VICTORY,
+    DEFEAT
 }
