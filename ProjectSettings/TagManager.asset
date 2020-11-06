@@ -9,6 +9,7 @@ TagManager:
   - Domino
   - LayingArea
   - Cake
+  - BookEmpty
   layers:
   - Default
   - TransparentFX

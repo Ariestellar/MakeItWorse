@@ -11,6 +11,7 @@ public class SliceManager : MonoBehaviour, GameLogic
     [SerializeField] private GameObject objectToShatter;
     [SerializeField] private GameObject _knife;
     [SerializeField] private Material crossSectionMaterial;
+    [SerializeField] private int _numberCutLines;
     [SerializeField] private List<GameObject> _sliceLines;
     [SerializeField] private List<GameObject> _pieces;   
        
@@ -88,7 +89,7 @@ public class SliceManager : MonoBehaviour, GameLogic
                 //после окончания вырисовывания линии прячем нож
                 _knife.SetActive(false);
                 //Когда мы закончили рисовать последнюю линию (4 по счету)
-                if (_lineRendererManager.GetNumberLines() == 4)
+                if (_lineRendererManager.GetNumberLines() == _numberCutLines)
                 {
                     _lineRendererManager.gameObject.SetActive(false);
                     Slice();//запускаем нарезку вместо кнопки
@@ -118,13 +119,16 @@ public class SliceManager : MonoBehaviour, GameLogic
     {
         //Первая линия режет целый начальный объект:
         _pieces = GetSlicedPieces(objectToShatter, GetСutLine(_sliceLines[0].transform), crossSectionMaterial);
-        objectToShatter.SetActive(false);      
-       
-        //Режем куски от полученных кусков линиями по порядку:   
-        for (int i = 1; i < _sliceLines.Count; i++)
+        objectToShatter.SetActive(false);
+
+        if (_sliceLines.Count > 1)
         {
-            //так как первая линия режет цельный объект то следующий линии начинаем с i=1
-            _pieces = SingleLineSlicing(_sliceLines[i], _pieces);            
+            //Режем куски от полученных кусков линиями по порядку:   
+            for (int i = 1; i < _sliceLines.Count; i++)
+            {
+                //так как первая линия режет цельный объект то следующий линии начинаем с i=1
+                _pieces = SingleLineSlicing(_sliceLines[i], _pieces);
+            }
         }
 
         _sliceLines.ForEach(line => line.SetActive(false));        

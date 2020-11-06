@@ -3,3 +3,9 @@
     VICTORY,
     DEFEAT
 }
+
+public enum ColorType
+{
+    First,
+    Second
+}
