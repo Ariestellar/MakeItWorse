@@ -7,5 +7,6 @@
 public enum ColorType
 {
     First,
-    Second
+    Second,
+    Third
 }

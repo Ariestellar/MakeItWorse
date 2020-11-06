@@ -6,7 +6,7 @@ using UnityEngine;
 public class OrderChecker : MonoBehaviour, GameLogic
 {
     [SerializeField] private PlaceForBook[] _placesForBook;
-    [SerializeField] private Action<StatusGame> _getResultsGame;
+    private Action<StatusGame> _getResultsGame;
 
     public void Check()
     {
