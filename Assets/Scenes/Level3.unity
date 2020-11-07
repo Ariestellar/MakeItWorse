@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
-  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientSkyColor: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 1}
+  m_AmbientEquatorColor: {r: 0.009433985, g: 0.009433985, b: 0.009433985, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -51,7 +51,7 @@ LightmapSettings:
     m_IndirectOutputScale: 1
     m_AlbedoBoost: 1
     m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 1
+    m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
     serializedVersion: 12
@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pushingElement: {fileID: 1366431207}
+  _dominos: []
 --- !u!114 &294777709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1253,7 +1254,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1548626243}
   m_LocalRotation: {x: -0, y: 0.72924685, z: -0, w: 0.6842508}
-  m_LocalPosition: {x: -1.31, y: -7.96, z: 8.6}
+  m_LocalPosition: {x: -2.65, y: -7.96, z: 8.6}
   m_LocalScale: {x: 7, y: 7, z: 7}
   m_Children:
   - {fileID: 747039350}
@@ -1473,7 +1474,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0.6089701, b: 0.9716981, a: 0}
+  m_BackGroundColor: {r: 0, g: 0.31565517, b: 0.9528302, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1513,13 +1514,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1673419119}
-  m_LocalRotation: {x: 0.26015052, y: -0.18195496, z: 0.08483777, w: 0.94446635}
-  m_LocalPosition: {x: 3.26, y: 4.47, z: -5.09}
+  m_LocalRotation: {x: 0.17706949, y: -0.21754938, z: 0.105760045, w: 0.9540092}
+  m_LocalPosition: {x: 3.01, y: 3.72, z: -4.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 31.485, y: -20.565, z: 4.4110003}
+  m_LocalEulerAnglesHint: {x: 22.573002, y: -24.140001, z: 7.7640004}
 --- !u!1001 &1749318689
 PrefabInstance:
   m_ObjectHideFlags: 0
