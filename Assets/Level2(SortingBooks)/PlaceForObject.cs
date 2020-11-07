@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Компонент вешается на пустое место заготовленное для объекта
 [RequireComponent(typeof(MeshRenderer))]
-public class PlaceForBook : MonoBehaviour
+public class PlaceForObject : MonoBehaviour
 {
     [SerializeField] private ColorType _colorType;
 

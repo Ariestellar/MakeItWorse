@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BookMovement : MonoBehaviour
-{    
-    private int _numberBooksDelivered;
-    private Vector3 _previousBookPosition;
-    private BookInHand _bookInHand;
-    private PlaceForBook _bookEmpty;
+//Компонент управляет движением объекта когда тот находится "в руке"
+public class ObjectInHandMovement : MonoBehaviour
+{
+    [SerializeField] private OrderChecker _orderCheker;
+    [SerializeField] private int _numberObjectsToBePlaced;
+    [SerializeField] private float _distanceFromCamera;
+    private ObjectInHand _bookInHand;
+    private PlaceForObject _bookEmpty;
     private int _numberBook;
-    private Camera _camera;    
-    [SerializeField] private OrderChecker _orderCheker;    
+    private Camera _camera;  
 
     private void Awake()
     {
-        _camera = GetComponent<Camera>();
+        _camera = Camera.main;
     }
 
     void FixedUpdate()
@@ -27,34 +28,34 @@ public class BookMovement : MonoBehaviour
 
             if (Physics.Raycast(rayAttack, out hit) && EventSystem.current.IsPointerOverGameObject() == false)
             {
-                if (hit.transform.gameObject.GetComponent<BookInHand>())
+                if (hit.transform.gameObject.GetComponent<ObjectInHand>())
                 {
                     if (_bookInHand == null)//Если первый раз коснулись книги
                     {          
-                        //Берем книгу в руку
-                        _bookInHand = hit.transform.gameObject.GetComponent<BookInHand>();                        
+                        //Берем объект в руку
+                        _bookInHand = hit.transform.gameObject.GetComponent<ObjectInHand>();                        
                         _bookInHand.gameObject.layer = 2;
 
                     }                    
                 }
                 else//Если тянем не отрывая от экрана указывая на что угодно кроме книги:
                 {
-                    //Если в руках книга:
+                    //Если объект в руках:
                     if (_bookInHand != null)
                     {
-                        //Меняем ей позицию 
-                        _bookInHand.transform.position = new Vector3(hit.point.x, hit.point.y, -1.5f);
+                        //Меняем ему позицию 
+                        _bookInHand.transform.position = new Vector3(hit.point.x, hit.point.y, _distanceFromCamera);
 
-                        if (hit.transform.gameObject.GetComponent<PlaceForBook>())
+                        if (hit.transform.gameObject.GetComponent<PlaceForObject>())
                         {
-                            if (hit.transform.gameObject.GetComponent<PlaceForBook>().IsFilled != true)
+                            if (hit.transform.gameObject.GetComponent<PlaceForObject>().IsFilled != true)
                             {
                                 if (_bookEmpty != null)
                                 {
                                     _bookEmpty.EmptyPlace();
                                     _bookEmpty = null;
                                 }
-                                _bookEmpty = hit.transform.gameObject.GetComponent<PlaceForBook>();
+                                _bookEmpty = hit.transform.gameObject.GetComponent<PlaceForObject>();
                                 _bookInHand.gameObject.SetActive(false);
                                 _bookEmpty.PutBookInPlace(_bookInHand.GetComponent<MeshRenderer>().materials, _bookInHand.ColorType);
                             }                            
@@ -73,7 +74,7 @@ public class BookMovement : MonoBehaviour
         }
         else//Если оторвали от экрана палец
         {
-            //Если в руках книга:
+            //Если в руках объект:
             if (_bookInHand != null)
             {                                
                 _bookInHand.gameObject.layer = 0;
@@ -81,7 +82,7 @@ public class BookMovement : MonoBehaviour
                 if (_bookEmpty.IsFilled)
                 {
                     _numberBook += 1;
-                    if (_numberBook == 4)
+                    if (_numberBook == _numberObjectsToBePlaced)
                     {
                         _orderCheker.Check();
                     }
