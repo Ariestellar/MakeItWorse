@@ -10,5 +10,5 @@ public class EggManager : MonoBehaviour, IGameLogic
     public void SetActionResultsGame(Action<StatusGame> action)
     {
         _getResultGame = action;
-    }
+    }   
 }

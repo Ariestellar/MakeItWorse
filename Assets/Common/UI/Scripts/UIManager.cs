@@ -12,4 +12,5 @@ public class UIManager : MonoBehaviour
         _resultPanel.ShowResult(statusGame);
         _upPanel.AddMoney(_resultPanel.GetNumberPointsLevel());
     }
+
 }
