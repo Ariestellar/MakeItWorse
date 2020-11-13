@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OrderChecker : MonoBehaviour, GameLogic
+public class OrderChecker : MonoBehaviour, IGameLogic
 {
     [SerializeField] private PlaceForObject[] _placesForBook;
     private Action<StatusGame> _getResultsGame;

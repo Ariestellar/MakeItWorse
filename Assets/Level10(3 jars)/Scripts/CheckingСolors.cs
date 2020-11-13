@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckingСolors : MonoBehaviour, GameLogic
+public class CheckingСolors : MonoBehaviour, IGameLogic
 {
     [SerializeField] private Jar[] _jars;
     [SerializeField] private int _ballsHitBanks;

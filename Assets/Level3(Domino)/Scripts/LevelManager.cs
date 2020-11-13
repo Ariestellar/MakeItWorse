@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class LevelManager : MonoBehaviour, GameLogic
+public class LevelManager : MonoBehaviour, IGameLogic
 {
     [SerializeField] private GameObject _pushingElement;
     [SerializeField] private List<GameObject> _dominos;

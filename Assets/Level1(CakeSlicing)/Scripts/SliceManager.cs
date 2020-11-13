@@ -5,28 +5,28 @@ using UnityEngine.EventSystems;
 using EzySlice;
 using System;
 
-public class SliceManager : MonoBehaviour, GameLogic
+public class SliceManager : MonoBehaviour, IGameLogic
 {
-    [SerializeField] private LineRendererManager _lineRendererManager;    
     [SerializeField] private GameObject objectToShatter;
+    [SerializeField] private LineRendererManager _lineRendererManager;
     [SerializeField] private GameObject _knife;
     [SerializeField] private Material crossSectionMaterial;
     [SerializeField] private int _numberCutLines;
     [SerializeField] private List<GameObject> _sliceLines;
-    [SerializeField] private List<GameObject> _pieces;   
-       
+    [SerializeField] private List<GameObject> _pieces;
+
+    
     private Action<StatusGame> _getResultsGame;
     private LineRenderer _sliceLineRenderer;
     private GameObject _currentSliceLine;    
     private Camera _camera;    
     private bool _isMouseButtonPressed;
     private Vector3 _startPointSwipe;
-    private Vector3 _currentPointSwipe;
-       
+    private Vector3 _currentPointSwipe;       
 
     private void Awake()
     {
-        _camera = Camera.main;
+        _camera = Camera.main;        
     }
 
     private void FixedUpdate()

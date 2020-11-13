@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FloorReachCheck : MonoBehaviour, GameLogic
+public class FloorReachCheck : MonoBehaviour, IGameLogic
 {
     private Action<StatusGame> _getResultGame;
 

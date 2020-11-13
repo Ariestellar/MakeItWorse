@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BookSorter : MonoBehaviour, GameLogic
+public class BookSorter : MonoBehaviour, IGameLogic
 {
     [SerializeField] private Book[] _books;
     //Расстояние между книгами
