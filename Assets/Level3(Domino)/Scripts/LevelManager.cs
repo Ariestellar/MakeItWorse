@@ -32,8 +32,7 @@ public class LevelManager : MonoBehaviour, IGameLogic
         yield return new WaitForSeconds(3);
         int numberStayDomino = 0;
         foreach (var domino in _dominos)
-        {
-            Debug.Log(domino.transform.rotation.eulerAngles.x);
+        {            
             if (domino.transform.rotation.eulerAngles.x <= 0.006f)
             {
                 numberStayDomino += 1;                

@@ -5,10 +5,11 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private ResultPanel _resultPanel;
-    [SerializeField] private GameObject _upPanel;
+    [SerializeField] private UpPanel _upPanel;
 
     public void ShowResultPanel(StatusGame statusGame)
     {        
-        _resultPanel.ShowResult(statusGame);       
+        _resultPanel.ShowResult(statusGame);
+        _upPanel.AddMoney(_resultPanel.GetNumberPointsLevel());
     }
 }

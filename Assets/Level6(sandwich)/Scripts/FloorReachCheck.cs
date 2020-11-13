@@ -3,48 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FloorReachCheck : MonoBehaviour, IGameLogic
-{
-    private Action<StatusGame> _getResultGame;
+public class FloorReachCheck : MonoBehaviour
+{    
+    [SerializeField] private CheckinGameResults _checkinGameResults;
+    [SerializeField] private Animator _jamAnimator;
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Floor")
-        {            
-            Debug.Log("Упал");
-            StartCoroutine(DelayCheck());
+        {
+            RayCast();
+            //StartCoroutine(DelayRayCast());
         }
     }
 
-    public void SetActionResultsGame(Action<StatusGame> action)
-    {
-        _getResultGame = action;
-    }
-
-    public void Check()
+    public void RayCast()
     {
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.up, out hit))
         {
-            Debug.Log(hit.transform.gameObject.name);
-            if (hit.transform.gameObject.tag == "Floor")
-            {
-                _getResultGame?.Invoke(StatusGame.VICTORY);
-            }
-            else
-            {
-                _getResultGame?.Invoke(StatusGame.DEFEAT);
-            }
+            _jamAnimator.enabled = true;
+            _checkinGameResults.Checking(hit.transform.gameObject.tag);             
         }
         else
         {
-            _getResultGame?.Invoke(StatusGame.DEFEAT);
+            _checkinGameResults.Checking("Null");
         }
     }
 
-    private IEnumerator DelayCheck()
+    private IEnumerator DelayRayCast()
     {
         yield return new WaitForSeconds(1);
-        Check();
+        RayCast();
     }
 }

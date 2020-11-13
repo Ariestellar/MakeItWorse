@@ -4,11 +4,11 @@ using UnityEngine;
 
 public static class GameStat
 {
-    static int _currentLevel;
-    static int _totalPoints;
+    public static int currentLevel;
+    public static int totalPoints;
 
-    static void IncreaseTotalNumberPoints(int numberPoints)
+    public static void IncreaseTotalNumberPoints(int numberPoints)
     {
-        _totalPoints += numberPoints;
+        totalPoints += numberPoints;
     }
 }

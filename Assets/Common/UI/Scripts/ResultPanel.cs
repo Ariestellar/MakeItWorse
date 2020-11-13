@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class ResultPanel : MonoBehaviour
 {
     [SerializeField] private Text _textResult;
+    [SerializeField] private Text _textNumberPoints;
     [SerializeField] private Button _next;
     [SerializeField] private Button _reset;
 
@@ -27,6 +28,10 @@ public class ResultPanel : MonoBehaviour
         _textResult.text = Convert.ToString(status);
         this.gameObject.SetActive(true);
     }
+    public int GetNumberPointsLevel()
+    {
+        return Convert.ToInt32(_textNumberPoints.text);
+    }
 
     private void OnClickNext()
     {
@@ -41,5 +46,5 @@ public class ResultPanel : MonoBehaviour
     private void OnClickReset()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+    }       
 }
