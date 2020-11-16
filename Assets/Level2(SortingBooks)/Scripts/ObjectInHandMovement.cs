@@ -88,8 +88,7 @@ public class ObjectInHandMovement : MonoBehaviour
                     }
                 }
                 _bookEmpty = null;
-            }
-            
+            }            
         }
     }
 }

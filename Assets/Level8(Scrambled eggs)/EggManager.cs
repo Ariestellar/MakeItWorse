@@ -10,5 +10,16 @@ public class EggManager : MonoBehaviour, IGameLogic
     public void SetActionResultsGame(Action<StatusGame> action)
     {
         _getResultGame = action;
-    }   
+    }
+
+    private void Checking(StatusGame status)
+    {
+        _getResultGame?.Invoke(status);        
+    }
+
+    public IEnumerator DelayCheking(StatusGame status)
+    {
+        yield return new WaitForSeconds(2);
+        Checking(status);
+    }
 }

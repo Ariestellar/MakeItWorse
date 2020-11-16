@@ -5,19 +5,22 @@ using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UIElements;
 
-[RequireComponent(typeof(Camera))]
 public class AimMode : MonoBehaviour
 {
-    [SerializeField] private GameObject _markerPrefab; 
-    
-    private GameObject _marker; 
-    private Camera _camera;
+    [SerializeField] private GameObject _markerPrefab;     
+    [SerializeField] private EggManager _eggManager;     
+    private GameObject _marker;    
+    private bool _isOverFryingPan;    
+    private Animator _animator;    
+    private bool _isAim = true;    
+
+    public bool IsOverFryingPan { get => _isOverFryingPan;}
 
     private void Awake()
-    {
-        _camera = GetComponent<Camera>();
+    {        
         _marker = Instantiate(_markerPrefab);
         _marker.SetActive(false);
+        _animator = GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -37,21 +40,45 @@ public class AimMode : MonoBehaviour
 
     private void FixedUpdate()
     {
-        RaycastHit hit;
-        Ray rayAttack = _camera.ScreenPointToRay(Input.mousePosition);//Проверить или изменить мышь и тач
-
-        if (Physics.Raycast(rayAttack, out hit))
+        if (_isAim)
         {
-            if (hit.transform.gameObject.tag == "Pan")
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit))
             {
-                _marker.SetActive(true);
-                _marker.transform.position = new Vector3(hit.point.x, 1.9f, hit.point.z);
+                if (hit.transform.gameObject.tag == "Pan" || hit.transform.gameObject.GetComponent<FriedEggZone>())
+                {
+                    _marker.SetActive(true);
+                    _isOverFryingPan = true;
+                    _marker.transform.position = new Vector3(hit.point.x, 1.9f, hit.point.z);
+                }
+                else
+                {
+                    _isOverFryingPan = false;
+                    _marker.SetActive(false);
+                }
+            }
+        }                 
+    }
+
+    public void GetWhereEggFalls()
+    {
+        _isAim = false;
+        _marker.SetActive(false);
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit))
+        {            
+            if (hit.transform.gameObject.GetComponent<FriedEggZone>())
+            {
+                hit.transform.gameObject.GetComponent<FriedEggZone>().FriedEgg.SetActive(true);
+                gameObject.SetActive(false);
+                StartCoroutine(_eggManager.DelayCheking(StatusGame.DEFEAT));
             }
             else
             {
-                _marker.SetActive(false);
+                _animator.SetTrigger("EggFellUnsuccessfully");
+                StartCoroutine(_eggManager.DelayCheking(StatusGame.VICTORY));
             }
 
-        }               
-    }    
+        }
+    }
 }
