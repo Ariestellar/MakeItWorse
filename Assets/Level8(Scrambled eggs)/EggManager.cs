@@ -12,14 +12,15 @@ public class EggManager : MonoBehaviour, IGameLogic
         _getResultGame = action;
     }
 
-    private void Checking(StatusGame status)
+    public void Checking(StatusGame status)
     {
-        _getResultGame?.Invoke(status);        
+        StartCoroutine(DelayCheking(status));
+                
     }
 
     public IEnumerator DelayCheking(StatusGame status)
     {
-        yield return new WaitForSeconds(2);
-        Checking(status);
+        yield return new WaitForSeconds(1.2f);
+        _getResultGame?.Invoke(status);
     }
 }

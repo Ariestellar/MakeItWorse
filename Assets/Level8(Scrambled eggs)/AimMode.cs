@@ -70,13 +70,14 @@ public class AimMode : MonoBehaviour
             if (hit.transform.gameObject.GetComponent<FriedEggZone>())
             {
                 hit.transform.gameObject.GetComponent<FriedEggZone>().FriedEgg.SetActive(true);
+                _eggManager.Checking(StatusGame.DEFEAT);
                 gameObject.SetActive(false);
-                StartCoroutine(_eggManager.DelayCheking(StatusGame.DEFEAT));
+                
             }
             else
             {
                 _animator.SetTrigger("EggFellUnsuccessfully");
-                StartCoroutine(_eggManager.DelayCheking(StatusGame.VICTORY));
+                _eggManager.Checking(StatusGame.VICTORY);
             }
 
         }

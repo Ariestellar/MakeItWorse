@@ -16,7 +16,16 @@ public class UpPanel : MonoBehaviour
     {
         _numberLevel.text = "Level " + Convert.ToString(SceneManager.GetActiveScene().buildIndex);
         _revert.onClick.AddListener(OnClickReset);
-        _textMoney.text = Convert.ToString(GameStat.totalPoints);
+        if (PlayerPrefs.HasKey("CurrenNumberMoney"))
+        {
+            _textMoney.text = Convert.ToString(PlayerPrefs.GetInt("CurrenNumberMoney"));
+            GameStat.totalPoints = PlayerPrefs.GetInt("CurrenNumberMoney");
+        }
+        else
+        {
+            _textMoney.text = "0";
+        }
+        
     }
 
     private void OnClickReset()

@@ -10,22 +10,40 @@ public class ResultPanel : MonoBehaviour
 {
     [SerializeField] private Text _textResult;
     [SerializeField] private Text _textNumberPoints;
+    [SerializeField] private GameObject _amountOfMoneyEarned;
+    [SerializeField] private Animator _background;
     [SerializeField] private Button _next;
     [SerializeField] private Button _reset;
+    [SerializeField] private Image _bgImage;
+    [SerializeField] private Sprite _defeat;
+    [SerializeField] private Sprite _victory;
+    [SerializeField] private GameObject _star;
 
     private void Awake()
     {
         _next.onClick.AddListener(OnClickNext);
-        _reset.onClick.AddListener(OnClickReset);
+        _reset.onClick.AddListener(OnClickReset);       
     }
 
     public void ShowResult(StatusGame status)
     {
         if (status == StatusGame.DEFEAT)
         {
-            _next.gameObject.SetActive(false);            
+            _bgImage.sprite = _defeat;
+            _next.gameObject.SetActive(false);
+            _amountOfMoneyEarned.SetActive(false);
+            _textResult.text = Texts.TextDefeat;
+            _textResult.color = Color.white;
         }
-        _textResult.text = Convert.ToString(status);
+        else
+        {
+            _star.SetActive(true);
+            _bgImage.sprite = _victory;
+            _background.enabled = true;
+            _textResult.text = Texts.TextVictory;
+            _textResult.color = Color.black;
+        }
+        
         this.gameObject.SetActive(true);
     }
     public int GetNumberPointsLevel()
@@ -36,6 +54,9 @@ public class ResultPanel : MonoBehaviour
     private void OnClickNext()
     {
         int numberScene = SceneManager.GetActiveScene().buildIndex + 1;
+        PlayerPrefs.SetInt("CurrenScene", SceneManager.GetActiveScene().buildIndex + 1);
+        PlayerPrefs.SetInt("CurrenNumberMoney", GameStat.totalPoints);
+        PlayerPrefs.Save();
         if (numberScene > SceneManager.sceneCountInBuildSettings - 1)
         {
             numberScene = 1;
@@ -45,6 +66,9 @@ public class ResultPanel : MonoBehaviour
 
     private void OnClickReset()
     {
+        PlayerPrefs.SetInt("CurrenScene", SceneManager.GetActiveScene().buildIndex);
+        PlayerPrefs.SetInt("CurrenNumberMoney", GameStat.totalPoints);
+        PlayerPrefs.Save();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }       
 }
