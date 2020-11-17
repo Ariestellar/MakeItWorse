@@ -34,7 +34,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: HideBook
+    m_ConditionEvent: TakeAway
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -121731277501166757}
@@ -113,13 +113,13 @@ AnimatorController:
   m_Name: Book(Clone) Empty
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: ShiftBook
+  - m_Name: Insert
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: HideBook
+  - m_Name: TakeAway
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -147,7 +147,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: ShiftBook
+    m_ConditionEvent: Insert
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -295321740483474106}

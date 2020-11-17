@@ -31,7 +31,7 @@ public class PlaceForObject : MonoBehaviour
             _isCorrectColorType = false;
         }
         _meshRenderer.enabled = true;
-        _animator.SetTrigger("ShiftBook");
+        _animator.SetTrigger("Insert");
 
         _meshRenderer.materials = materialsBook;
         _isFilled = true;
@@ -40,7 +40,7 @@ public class PlaceForObject : MonoBehaviour
     public void EmptyPlace()
     {
         _meshRenderer.enabled = false;
-        _animator.SetTrigger("HideBook");
+        _animator.SetTrigger("TakeAway");
         
         _isFilled = false;
     }
