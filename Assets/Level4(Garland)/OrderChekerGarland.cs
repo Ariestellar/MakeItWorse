@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OrderChecker : MonoBehaviour, IGameLogic, IChecker
+public class OrderChekerGarland : MonoBehaviour, IGameLogic, IChecker
 {
     [SerializeField] private PlaceForObject[] _placesForBook;
+    [SerializeField] private LightManager _lightManager;
     private Action<StatusGame> _getResultsGame;
 
     public void Check()
@@ -20,16 +21,24 @@ public class OrderChecker : MonoBehaviour, IGameLogic, IChecker
         }
         if (numberCompare != _placesForBook.Length)
         {
-            _getResultsGame.Invoke(StatusGame.VICTORY);
+            _lightManager.LightGarland();
+            StartCoroutine(DelayShowResult(StatusGame.VICTORY));             
         }
         else
         {
-            _getResultsGame.Invoke(StatusGame.DEFEAT);
+            _lightManager.LightGarland();
+            StartCoroutine(DelayShowResult(StatusGame.DEFEAT));            
         }
     }
 
     public void SetActionResultsGame(Action<StatusGame> action)
     {
         _getResultsGame = action;
+    }
+
+    private IEnumerator DelayShowResult(StatusGame status)
+    {
+        yield return new WaitForSeconds(2);
+        _getResultsGame.Invoke(status);
     }
 }

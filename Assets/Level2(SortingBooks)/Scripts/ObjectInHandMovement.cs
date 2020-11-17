@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 //Компонент управляет движением объекта когда тот находится "в руке"
 public class ObjectInHandMovement : MonoBehaviour
 {
-    [SerializeField] private OrderChecker _orderCheker;
+    private IChecker _orderCheker;
     [SerializeField] private int _numberObjectsToBePlaced;
     [SerializeField] private float _distanceFromCamera;
     private ObjectInHand _bookInHand;
@@ -16,6 +16,7 @@ public class ObjectInHandMovement : MonoBehaviour
 
     private void Awake()
     {
+        _orderCheker = GetComponent<IChecker>();
         _camera = Camera.main;
     }
 
