@@ -10,7 +10,7 @@ public class OrderChekerGarland : MonoBehaviour, IGameLogic, IChecker
     private Action<StatusGame> _getResultsGame;
 
     public void Check()
-    {
+    {        
         StartCoroutine(DelayCheck());
     }
 
@@ -21,7 +21,7 @@ public class OrderChekerGarland : MonoBehaviour, IGameLogic, IChecker
 
     private IEnumerator DelayShowResult(StatusGame status)
     {
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(2.2f);
         _getResultsGame.Invoke(status);
     }
     private IEnumerator DelayCheck()

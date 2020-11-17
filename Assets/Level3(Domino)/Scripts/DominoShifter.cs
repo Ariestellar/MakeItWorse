@@ -9,11 +9,13 @@ public class DominoShifter : MonoBehaviour
     [SerializeField] private List<GameObject> _dominos;
     private LevelManager _levelManager;
     private Camera _camera;
+    [SerializeField] private CameraMovement _cameraMovement;
     private GameObject _dominoInHand;
 
     private void Awake()
     {
         _camera = Camera.main;
+        _cameraMovement = Camera.main.GetComponent<CameraMovement>();
         _levelManager = GetComponent<LevelManager>();
     }
 
@@ -30,6 +32,7 @@ public class DominoShifter : MonoBehaviour
                 {
                     if (_dominoInHand == null)//Если первый раз коснулись домино
                     {
+                        _cameraMovement.SetTarget(hit.transform.gameObject.transform.position);
                         _dominoInHand = hit.transform.gameObject;
                         _dominoInHand.layer = 2;//Взятая в руки домино игнорирует райкаст
                         TurnOffRestDominoes();//все остальные домино игнорируют райкаст
@@ -62,7 +65,7 @@ public class DominoShifter : MonoBehaviour
             if (_dominoInHand != null)
             {                
                 _dominoInHand.layer = 0;
-                _dominoInHand = null;
+                _dominoInHand = null;                
                 StopCarryingDominoes();
             }
         }
@@ -76,6 +79,7 @@ public class DominoShifter : MonoBehaviour
 
     private void StopCarryingDominoes()
     {
+        _cameraMovement.ShiftCamera();
         _dominos.ForEach(domino => domino.GetComponent<Rigidbody>().isKinematic = false);
         _levelManager.SetDominos(_dominos);
         StartCoroutine(_levelManager.StartFallTimer());        

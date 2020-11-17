@@ -1208,7 +1208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba2cfba8a3e12e4bade1224adf12f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _placesForBook:
+  _placesForLamp:
   - {fileID: 919132148791534823}
   - {fileID: 919132149126039024}
   - {fileID: 919132148079656512}
@@ -1253,6 +1253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e6708376971ce4a80dd220985e7f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _numberRedyLamp: 0
 --- !u!1 &788058827
 GameObject:
   m_ObjectHideFlags: 0
