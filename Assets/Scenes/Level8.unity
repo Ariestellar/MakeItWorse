@@ -662,6 +662,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 5867315834918827834, guid: 6e8bec9648477404cb10f8b323ec9a46,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6513662253666220624, guid: 6e8bec9648477404cb10f8b323ec9a46,
         type: 3}
       propertyPath: m_AnchorMin.y
