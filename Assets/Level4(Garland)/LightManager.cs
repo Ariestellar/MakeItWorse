@@ -11,5 +11,24 @@ public class LightManager : MonoBehaviour
     {
         _mainLight.SetActive(false);
         _pointLight.SetActive(true);
+        //StartCoroutine(Flashing());
+    }
+
+    private IEnumerator DelayOn()
+    {
+        yield return new WaitForSeconds(0.2f);
+        _pointLight.SetActive(true);       
+    }
+    private IEnumerator DelayOff()
+    {
+        yield return new WaitForSeconds(0.3f);
+        _pointLight.SetActive(false);
+        StartCoroutine(DelayOn());
+    }
+    private IEnumerator Flashing()
+    {
+        yield return new WaitForSeconds(0.2f);
+        _pointLight.SetActive(true);
+        StartCoroutine(DelayOff());
     }
 }

@@ -1225,7 +1225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 325a82afca303a1418d6b7b7ccfbf4c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _orderCheker: {fileID: 0}
   _numberObjectsToBePlaced: 3
   _distanceFromCamera: 3
 --- !u!114 &733632073
@@ -1242,6 +1241,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pointLight: {fileID: 1528999137}
   _mainLight: {fileID: 1021928444}
+--- !u!114 &733632074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733632070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16e6708376971ce4a80dd220985e7f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &788058827
 GameObject:
   m_ObjectHideFlags: 0
