@@ -54,13 +54,14 @@ public class ResultPanel : MonoBehaviour
     private void OnClickNext()
     {
         int numberScene = SceneManager.GetActiveScene().buildIndex + 1;
-        PlayerPrefs.SetInt("CurrenScene", SceneManager.GetActiveScene().buildIndex + 1);
-        PlayerPrefs.SetInt("CurrenNumberMoney", GameStat.totalPoints);
-        PlayerPrefs.Save();
-        if (numberScene > SceneManager.sceneCountInBuildSettings - 1)
+        
+        if (numberScene >= SceneManager.sceneCountInBuildSettings - 1)
         {
             numberScene = 1;
-        }        
+        }
+        PlayerPrefs.SetInt("CurrenScene", numberScene);
+        PlayerPrefs.SetInt("CurrenNumberMoney", GameStat.totalPoints);
+        PlayerPrefs.Save();
         SceneManager.LoadScene(numberScene);
     }
 
