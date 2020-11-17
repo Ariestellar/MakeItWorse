@@ -8,7 +8,7 @@ public static class Texts
     public static string TextDefeat = "No, you did everything perfectly, and this is wrong, try again!";
     public static string[] TutorText = new string[] {
     "",//0 уровень для логики и про запас
-    "Сut the cake chaotically", //1 уровень(Торт)
+    "Cut the cake chaotically", //1 уровень(Торт)
     "Put the books wrong", //2 уровень(Книги)
     "Don't let them fall perfectly", //3 уровень(Домино)    
     "Add the light bulbs, let the perfectionists rejoice", //4 уровень(Гирлянды)

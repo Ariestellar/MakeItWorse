@@ -914,7 +914,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 325a82afca303a1418d6b7b7ccfbf4c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _orderCheker: {fileID: 87651239}
   _numberObjectsToBePlaced: 4
   _distanceFromCamera: 1
 --- !u!1 &89122303
@@ -1022,7 +1021,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89122303}
   m_LocalRotation: {x: 0.17108147, y: -0.20640069, z: 0.0366796, w: 0.96269655}
-  m_LocalPosition: {x: -0.59, y: -1.98, z: -1.51}
+  m_LocalPosition: {x: -0.59, y: -1.98, z: -0.57}
   m_LocalScale: {x: 1, y: 1, z: 0.10000002}
   m_Children: []
   m_Father: {fileID: 0}
