@@ -55,7 +55,7 @@ public class ResultPanel : MonoBehaviour
     {
         int numberScene = SceneManager.GetActiveScene().buildIndex + 1;
         
-        if (numberScene >= SceneManager.sceneCountInBuildSettings - 1)
+        if (numberScene > SceneManager.sceneCountInBuildSettings - 1)
         {
             numberScene = 1;
         }
