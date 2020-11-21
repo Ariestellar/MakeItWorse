@@ -916,6 +916,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _numberObjectsToBePlaced: 4
   _distanceFromCamera: 1
+  _briffingPanel: {fileID: 750644406}
 --- !u!1 &89122303
 GameObject:
   m_ObjectHideFlags: 0
@@ -5661,6 +5662,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4908945124100713510, guid: 6e8bec9648477404cb10f8b323ec9a46,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908945124100713510, guid: 6e8bec9648477404cb10f8b323ec9a46,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4923477047277518339, guid: 6e8bec9648477404cb10f8b323ec9a46,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5771,6 +5782,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 7516842309839533149, guid: 6e8bec9648477404cb10f8b323ec9a46,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e8bec9648477404cb10f8b323ec9a46, type: 3}
 --- !u!114 &750644405 stripped
@@ -5785,6 +5801,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77414cdcf8009a544a38d97947a10ec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &750644406 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7439338106563322434, guid: 6e8bec9648477404cb10f8b323ec9a46,
+    type: 3}
+  m_PrefabInstance: {fileID: 750644404}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &792379089
 GameObject:
   m_ObjectHideFlags: 0

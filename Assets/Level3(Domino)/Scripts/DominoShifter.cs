@@ -11,6 +11,7 @@ public class DominoShifter : MonoBehaviour
     private Camera _camera;
     [SerializeField] private CameraMovement _cameraMovement;
     private GameObject _dominoInHand;
+    [SerializeField] private GameObject _briffingPanel;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class DominoShifter : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
+            _briffingPanel.SetActive(false);
             RaycastHit hit;
             Ray rayAttack = _camera.ScreenPointToRay(Input.mousePosition);
 

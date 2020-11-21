@@ -14,8 +14,8 @@ public class SliceManager : MonoBehaviour, IGameLogic
     [SerializeField] private int _numberCutLines;
     [SerializeField] private List<GameObject> _sliceLines;
     [SerializeField] private List<GameObject> _pieces;
-
-    
+    [SerializeField] private GameObject _briffingPanel;
+        
     private Action<StatusGame> _getResultsGame;
     private LineRenderer _sliceLineRenderer;
     private GameObject _currentSliceLine;    
@@ -32,7 +32,8 @@ public class SliceManager : MonoBehaviour, IGameLogic
     private void FixedUpdate()
     {
         if (Input.GetMouseButton(0))//Если мы касаемся экрана:
-        {           
+        {
+            _briffingPanel.SetActive(false);
             RaycastHit hit;
             Ray rayAttack = _camera.ScreenPointToRay(Input.mousePosition);//пускаем луч в точку касания            
 

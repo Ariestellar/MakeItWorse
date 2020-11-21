@@ -9,6 +9,8 @@ public class ObjectInHandMovement : MonoBehaviour
     private IChecker _orderCheker;
     [SerializeField] private int _numberObjectsToBePlaced;
     [SerializeField] private float _distanceFromCamera;
+    [SerializeField] private GameObject _briffingPanel;
+    
     private ObjectInHand _bookInHand;
     private PlaceForObject _bookEmpty;
     private int _numberBook;
@@ -24,6 +26,7 @@ public class ObjectInHandMovement : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
+            _briffingPanel.SetActive(false);
             RaycastHit hit;
             Ray rayAttack = _camera.ScreenPointToRay(Input.mousePosition);
 

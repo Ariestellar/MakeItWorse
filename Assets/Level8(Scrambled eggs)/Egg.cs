@@ -9,7 +9,8 @@ public class Egg : MonoBehaviour
 {    
     private Camera _camera;
     private AimMode _aimMode;
-    private Animator _animator;    
+    private Animator _animator;
+    [SerializeField] private GameObject _briffingPanel;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class Egg : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
+            _briffingPanel.SetActive(false);
             RaycastHit hit;
             Ray rayAttack = _camera.ScreenPointToRay(Input.mousePosition);
 

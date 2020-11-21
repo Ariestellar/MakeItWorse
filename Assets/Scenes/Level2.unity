@@ -1885,6 +1885,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4908945124100713510, guid: 6e8bec9648477404cb10f8b323ec9a46,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908945124100713510, guid: 6e8bec9648477404cb10f8b323ec9a46,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4923477047277518339, guid: 6e8bec9648477404cb10f8b323ec9a46,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2074,6 +2084,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77414cdcf8009a544a38d97947a10ec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &781462963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7439338106563322434, guid: 6e8bec9648477404cb10f8b323ec9a46,
+    type: 3}
+  m_PrefabInstance: {fileID: 781462961}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &784877344
 GameObject:
   m_ObjectHideFlags: 0
@@ -2354,6 +2370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _numberObjectsToBePlaced: 4
   _distanceFromCamera: -1.5
+  _briffingPanel: {fileID: 781462963}
 --- !u!114 &919803291
 MonoBehaviour:
   m_ObjectHideFlags: 0

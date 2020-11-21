@@ -498,6 +498,7 @@ MonoBehaviour:
   - {fileID: 88963980}
   - {fileID: 1462569745}
   _cameraMovement: {fileID: 0}
+  _briffingPanel: {fileID: 616245833}
 --- !u!114 &538060072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -623,6 +624,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!1 &616245833 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7439338106563322434, guid: 6e8bec9648477404cb10f8b323ec9a46,
+    type: 3}
+  m_PrefabInstance: {fileID: 1749318689}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &651627744
 GameObject:
   m_ObjectHideFlags: 0
@@ -1538,6 +1545,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4908945124100713510, guid: 6e8bec9648477404cb10f8b323ec9a46,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908945124100713510, guid: 6e8bec9648477404cb10f8b323ec9a46,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4923477047277518339, guid: 6e8bec9648477404cb10f8b323ec9a46,
         type: 3}
       propertyPath: m_LocalPosition.x

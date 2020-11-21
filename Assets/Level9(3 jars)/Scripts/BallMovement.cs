@@ -6,8 +6,8 @@ using UnityEngine.EventSystems;
 public class BallMovement : MonoBehaviour
 {    
     private Ball _ballInHand;        
-    private Camera _camera;    
-
+    private Camera _camera;
+    [SerializeField] private GameObject _briffingPanel;
     private void Awake()
     {
         _camera = GetComponent<Camera>();
@@ -17,6 +17,7 @@ public class BallMovement : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
+            _briffingPanel.SetActive(false);
             RaycastHit hit;
             Ray rayAttack = _camera.ScreenPointToRay(Input.mousePosition);
 

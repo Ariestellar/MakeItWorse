@@ -596,6 +596,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e8bec9648477404cb10f8b323ec9a46, type: 3}
+--- !u!1 &151195608 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7439338106563322434, guid: 6e8bec9648477404cb10f8b323ec9a46,
+    type: 3}
+  m_PrefabInstance: {fileID: 151195607}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &203094936 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4667940470679883397, guid: 6e8bec9648477404cb10f8b323ec9a46,
@@ -1317,6 +1323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _numberObjectsToBePlaced: 3
   _distanceFromCamera: 3
+  _briffingPanel: {fileID: 151195608}
 --- !u!114 &733632073
 MonoBehaviour:
   m_ObjectHideFlags: 0

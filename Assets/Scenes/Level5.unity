@@ -396,6 +396,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77414cdcf8009a544a38d97947a10ec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &381308024 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7439338106563322434, guid: 6e8bec9648477404cb10f8b323ec9a46,
+    type: 3}
+  m_PrefabInstance: {fileID: 381308022}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &429838658
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,6 +748,7 @@ MonoBehaviour:
   _numberCutLines: 4
   _sliceLines: []
   _pieces: []
+  _briffingPanel: {fileID: 381308024}
 --- !u!1 &1288352549
 GameObject:
   m_ObjectHideFlags: 0

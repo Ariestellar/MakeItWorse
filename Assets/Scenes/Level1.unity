@@ -239,6 +239,7 @@ MonoBehaviour:
   _numberCutLines: 4
   _sliceLines: []
   _pieces: []
+  _briffingPanel: {fileID: 1338939160}
 --- !u!1 &245304392
 GameObject:
   m_ObjectHideFlags: 0
@@ -506,6 +507,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &1338939160 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7439338106563322434, guid: 6e8bec9648477404cb10f8b323ec9a46,
+    type: 3}
+  m_PrefabInstance: {fileID: 4923477047476696659}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1673419119
 GameObject:
   m_ObjectHideFlags: 0

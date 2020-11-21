@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private ResultPanel _resultPanel;
     [SerializeField] private UpPanel _upPanel;
     [SerializeField] private Text _tutorText;
+    [SerializeField] private Animator _briffingPanel;
     private CanvasScaler _canvasScaler;
 
     private void Awake()
@@ -18,6 +20,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        _briffingPanel.SetTrigger(Convert.ToString(SceneManager.GetActiveScene().buildIndex));
         if (Screen.width <= 480)
         {
             _canvasScaler.scaleFactor = 0.4f;
