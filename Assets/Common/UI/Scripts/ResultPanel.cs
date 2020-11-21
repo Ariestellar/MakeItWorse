@@ -18,6 +18,7 @@ public class ResultPanel : MonoBehaviour
     [SerializeField] private Sprite _defeat;
     [SerializeField] private Sprite _victory;
     [SerializeField] private GameObject _star;
+    [SerializeField] private GameObject _shadingPanel;
 
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class ResultPanel : MonoBehaviour
 
     public void ShowResult(StatusGame status)
     {
+        _shadingPanel.SetActive(true);
         if (status == StatusGame.DEFEAT)
         {
             _bgImage.sprite = _defeat;
