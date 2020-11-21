@@ -31,9 +31,9 @@ public class FloorReachCheck : MonoBehaviour
         }
     }
 
-    private IEnumerator DelayRayCast()
+    /*private IEnumerator DelayRayCast()
     {
         yield return new WaitForSeconds(1);
         RayCast();
-    }
+    }*/
 }

@@ -827,6 +827,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 8391242725076042740, guid: 6e8bec9648477404cb10f8b323ec9a46,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e8bec9648477404cb10f8b323ec9a46, type: 3}
 --- !u!114 &991091345 stripped
@@ -924,6 +929,7 @@ GameObject:
   - component: {fileID: 1174130603}
   - component: {fileID: 1174130602}
   - component: {fileID: 1174130605}
+  - component: {fileID: 1174130606}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1008,6 +1014,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713d426d45c5df44285035f55e385f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1174130606
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174130601}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f56ad30f790c58349a212bbae1677abf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1191323135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1365,6 +1390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f4e971d3bf1a634386cfe737f01619b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animatorCameraMovement: {fileID: 1174130606}
 --- !u!1 &1725496550
 GameObject:
   m_ObjectHideFlags: 0
