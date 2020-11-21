@@ -88,11 +88,18 @@ public class ObjectInHandMovement : MonoBehaviour
                     _numberBook += 1;
                     if (_numberBook == _numberObjectsToBePlaced)
                     {
-                        _orderCheker.Check();
+                        StartCoroutine(DelayChecker());
+                        //_orderCheker.Check();
                     }
                 }
                 _bookEmpty = null;
             }            
         }
+    }
+
+    private IEnumerator DelayChecker()
+    {
+        yield return new WaitForSeconds(2);
+        _orderCheker.Check();
     }
 }

@@ -20,7 +20,8 @@ public class CheckingСolors : MonoBehaviour, IGameLogic
         _ballsHitBanks += 1;
         if (_ballsHitBanks == 4)
         {
-            Check();
+            StartCoroutine(DelayChecker());
+            //Check();
         }
     }
 
@@ -43,5 +44,11 @@ public class CheckingСolors : MonoBehaviour, IGameLogic
         {
             _getResultsGame?.Invoke(StatusGame.VICTORY);
         }
+    }
+
+    private IEnumerator DelayChecker()
+    {
+        yield return new WaitForSeconds(2);
+        Check();
     }
 }
